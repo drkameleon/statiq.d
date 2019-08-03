@@ -1,0 +1,1 @@
+THIS IS index.md's CONTENT
