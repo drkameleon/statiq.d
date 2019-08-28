@@ -1,0 +1,14 @@
+%HEADER%
+Usage:
+	
+	statiq <command> [options]
+
+Commands:
+
+	new <path>		create new website at path
+	run <path>		build and run website at path
+
+Options:
+
+	--help 			show this help screen
+	--version		print version

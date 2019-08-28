@@ -7,76 +7,64 @@ import std.path;
 import std.stdio;
 
 import sdlang;
-
+/*
 import vibe.d;
 import vibe.http.fileserver;
 import vibe.http.router;
 import vibe.http.server;
-import vibe.textfilter.markdown;
+*/
 
 import utils;
 
-const string LOGO = "=======================================\n" ~
-					"= StatiQ.D\n" ~
-					"= Static website generator in D\n" ~
-					"= \n" ~
-					"= By Dr.Kameleon\n" ~
-					"=======================================";
+import statiq.website;
 
-const string HELP = "new <path>		\tcreate new Statiq website at path\n" ~
-					"build <path>	\tbuild website at path\n" ~
-					"run <path>		\tdevelopment-build and run website at path\n\n" ~
-					"--help 		\tshow this help screen";
+const string VERSION = "0.1";
+
+const string HEADER_STR = import("header.txt").replace("%VERSION%",VERSION);
+const string HELP_STR = import("help.txt").replace("%HEADER%",HEADER_STR);
+const string VERSION_STR = import("version.txt").replace("%VERSION%",VERSION);
 
 void main(string[] args)
 {
-	writeln(LOGO);
-
 	args.popFront();
-
 	if (args.count < 1) showError("Not enough arguments", true);
 
-	auto command = args[0];
+	switch (args[0]) {
+		case "--help": writeln(HELP_STR); break;
+		case "--version": writeln(VERSION_STR); break;
 
-	switch (command) {
-		default:
-			 showError("Command not recognized", true);
-			 break;
-		case "--help":
-			writeln(HELP);
-			break;
 		case "new": 
+			writeln(HEADER_STR);
 			if (args.count < 2) showError("Not enough arguments for 'new' - missing project name", true);
 			
-			auto target = args[1];
-			mkdir(target);
-			mkdir(target ~ "/build");
-			mkdir(target ~ "/data");
-			mkdir(target ~ "/pages");
-			mkdir(target ~ "/template");
-			break;
-		case "build":
-			if (args.count < 2) showError("Not enough arguments for 'build' - missing project name", true);
+			Website ws = new Website(args[1],true);
+			ws.print();
 
-			auto target = args[1];
 			break;
 		case "run":
+			writeln(HEADER_STR);
 			if (args.count < 2) showError("Not enough arguments for 'run' - missing project name", true);
 
-			auto target = args[1];
+			Website ws = new Website(args[1],false);
+			ws.print();
+			ws.build();
+			/*
 			foreach (f; getFiles(target,".md")) {
-				writeln(f);
-				writeln(readText(f));
-			}
-			break;
-	}
+				auto tfile = target ~ "/" ~ f.replace(target,"build").replace("pages/","").replace(".md",".html");
+				auto ocontent = readText(f);
 
-	writeln("Command: " ~ command);
-	writeln(filterMarkdown("## This is a heading"));
-	
-	writeln("ARG[1] = " ~ args[1]);
-	foreach (f; getFiles("test",".md")) {
-		writeln(f);
+				writeln("File: " ~ f);
+				writeln("Target: " ~ tfile);
+				
+				std.file.write(tfile, filterMarkdown(ocontent));
+				//writeln(f);
+				//writeln(readText(f));
+			}*/
+			break;
+
+		default:
+			showError("Command not recognized", true);
+			break;
 	}
 
 }

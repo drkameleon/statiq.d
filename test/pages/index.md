@@ -1,1 +1,3 @@
-THIS IS index.md's CONTENT
+# Statiq.d
+
+This is your index page

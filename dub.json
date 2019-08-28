@@ -7,7 +7,8 @@
 		"sdlang-d": "~>0.10.5",
 		"vibe-d": "~>0.8.5"
 	},
-	"description": "Static website generator in D",
+	"dflags-dmd" : ["-J resources"],
+	"description": "Static Website Generator in D",
 	"license": "MIT",
 	"name": "statiq"
 }
