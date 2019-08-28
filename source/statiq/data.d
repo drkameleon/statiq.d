@@ -1,3 +1,10 @@
+/*************************************************
+* Statiq.d - Static Website Generator in D
+* Copyright (c) 2019 Dr.Kameleon
+*
+* @file: statiq/data.d
+**************************************************/
+
 module statiq.data;
 
 import std.conv;

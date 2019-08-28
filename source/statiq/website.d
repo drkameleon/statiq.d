@@ -1,14 +1,20 @@
+/*************************************************
+* Statiq.d - Static Website Generator in D
+* Copyright (c) 2019 Dr.Kameleon
+*
+* @file: statiq/website.d
+**************************************************/
+
 module statiq.website;
 
 import std.file;
 import std.stdio;
 import std.string;
 
+import statiq.config;
+import statiq.data;
 import statiq.page;
 import statiq.theme;
-import statiq.data;
-import statiq.config;
-
 import utils;
 
 class Website {

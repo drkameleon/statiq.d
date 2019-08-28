@@ -1,28 +1,28 @@
-import core.stdc.stdlib;
+/*************************************************
+* Statiq.d - Static Website Generator in D
+* Copyright (c) 2019 Dr.Kameleon
+*
+* @file: app.d
+**************************************************/
 
+import core.stdc.stdlib;
+import sdlang;
 import std.algorithm;
 import std.array;
 import std.file;
 import std.path;
 import std.stdio;
 
-import sdlang;
-/*
-import vibe.d;
-import vibe.http.fileserver;
-import vibe.http.router;
-import vibe.http.server;
-*/
-
-import utils;
-
 import statiq.website;
+import utils;
 
 const string VERSION = "0.1";
 
 const string HEADER_STR = import("header.txt").replace("%VERSION%",VERSION);
 const string HELP_STR = import("help.txt").replace("%HEADER%",HEADER_STR);
 const string VERSION_STR = import("version.txt").replace("%VERSION%",VERSION);
+
+const bool DEBUG = true;
 
 void main(string[] args)
 {
@@ -38,7 +38,8 @@ void main(string[] args)
 			if (args.count < 2) showError("Not enough arguments for 'new' - missing project name", true);
 			
 			Website ws = new Website(args[1],true);
-			ws.print();
+
+			if (DEBUG) ws.print();
 
 			break;
 		case "run":
@@ -46,22 +47,12 @@ void main(string[] args)
 			if (args.count < 2) showError("Not enough arguments for 'run' - missing project name", true);
 
 			Website ws = new Website(args[1],false);
-			ws.print();
+
+			if (DEBUG) ws.print();
+
 			ws.build();
-			/*
-			foreach (f; getFiles(target,".md")) {
-				auto tfile = target ~ "/" ~ f.replace(target,"build").replace("pages/","").replace(".md",".html");
-				auto ocontent = readText(f);
 
-				writeln("File: " ~ f);
-				writeln("Target: " ~ tfile);
-				
-				std.file.write(tfile, filterMarkdown(ocontent));
-				//writeln(f);
-				//writeln(readText(f));
-			}*/
 			break;
-
 		default:
 			showError("Command not recognized", true);
 			break;

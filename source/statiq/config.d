@@ -1,11 +1,17 @@
+/*************************************************
+* Statiq.d - Static Website Generator in D
+* Copyright (c) 2019 Dr.Kameleon
+*
+* @file: statiq/config.d
+**************************************************/
+
 module statiq.config;
 
+import sdlang;
 import std.algorithm;
 import std.conv;
 import std.file;
 import std.stdio;
-
-import sdlang;
 
 import utils;
 

@@ -1,10 +1,16 @@
-module statiq.page;
+/*************************************************
+* Statiq.d - Static Website Generator in D
+* Copyright (c) 2019 Dr.Kameleon
+*
+* @file: statiq/page.d
+**************************************************/
 
-import vibe.textfilter.markdown;
+module statiq.page;
 
 import std.file;
 import std.stdio;
 import std.string;
+import vibe.textfilter.markdown;
 
 class Page {
 	string base;
