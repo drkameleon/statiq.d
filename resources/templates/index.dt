@@ -1,0 +1,8 @@
+doctype html
+html
+	head
+		title #{title} - example page
+	body
+		h1= title
+		p.
+			Multiple lines of text are contained in this paragraph.
